@@ -52,3 +52,17 @@ build-backend = "setuptools.build_meta"
 [tool.mypy]
 strict = true
 ignore_missing_imports = true
+
+[tool.pytest]
+minversion = "9.0"
+addopts = ["-ra"]
+strict = true
+testpaths = [
+  "tests"
+]
+markers = [
+  "default:        test appendfilename's default string insertion",
+  "prepend:        test appendfilename's optional -p/--prepend flag",
+  "smart_prepend:  test appendfilename's optional --smart-prepend flag",
+]
+
