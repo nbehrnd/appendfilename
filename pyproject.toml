@@ -34,7 +34,7 @@ dependencies = [
 Homepage = "https://github.com/novoid/appendfilename"
 
 [project.scripts]
-guessfilename = "appendfilename:main"
+appendfilename = "appendfilename:main"
 
 [[tool.uv.index]]
 name = "appendfilename"
