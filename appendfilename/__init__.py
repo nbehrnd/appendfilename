@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-PROG_VERSION = u"Time-stamp: <2025-05-14 16:02:13 vk>"
+PROG_VERSION = u"Time-stamp: <2026-06-06 12:00:00 vk>"
 
 # TODO:
 # * fix parts marked with «FIXXME»
@@ -404,8 +404,14 @@ def main():
             # Register our completer function
             readline.set_completer(SimpleCompleter(vocabulary).complete)
 
-            # Use the tab key for completion
-            readline.parse_and_bind('tab: complete')
+            # Use the tab key for completion. The binding syntax differs
+            # between GNU readline and libedit (the latter is used e.g. by
+            # uv-managed / python-build-standalone interpreters). Without the
+            # libedit-specific binding, TAB just inserts a literal tab.
+            if 'libedit' in (readline.__doc__ or ''):
+                readline.parse_and_bind('bind ^I rl_complete')
+            else:
+                readline.parse_and_bind('tab: complete')
 
             tabcompletiondescription = '; complete ' + str(len(vocabulary)) + ' words with TAB'
 
