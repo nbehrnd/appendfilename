@@ -1,0 +1,39 @@
+name: CI_tox_appendfilename
+
+# name    : tox.yml
+# purpose : run pytest on appendfilename
+# date    : [2026-05-13 Wed]
+# edit    :
+
+on:
+  workflow_dispatch:  # the manual trigger
+  # push:
+    # branches: [ dev, main ]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        python-version: ['3.10', '3.11', '3.12', '3.13', '3.14']
+
+    steps:
+    - uses: actions/checkout@v5
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v6
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install tox
+      run: |
+        python -m pip install --upgrade pip
+        pip install .
+        pip install pytest
+        pip install tox tox-gh-actions
+        pip list
+
+    - name: run tox' jobs (which GitHub happens to split in separate jobs)
+      run: tox
+
