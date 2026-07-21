@@ -38,7 +38,15 @@ dependencies = [
     "pyreadline3>=3.5.4",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest>=9.0"
+]
 
+[dependency-groups]
+dev = [
+    "pytest>=9.0",
+]
 
 [project.urls]
 Homepage = "https://github.com/novoid/appendfilename"
